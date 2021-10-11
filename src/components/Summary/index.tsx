@@ -4,7 +4,7 @@ import totalImg from '../../assets/total.svg'
 
 import { Container } from './styles'
 
-export function Summary() {
+export function Summary(): React.ReactElement {
   return (
     <Container>
       <div>
