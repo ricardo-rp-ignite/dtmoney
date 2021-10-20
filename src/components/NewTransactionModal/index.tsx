@@ -1,7 +1,9 @@
 import Modal from 'react-modal'
-import { Form } from './styles'
+import { Form, TransactionTypeContainer } from './styles'
 
 import closeImg from '../../assets/close.svg'
+import incomeImg from '../../assets/income.svg'
+import outcomeImg from '../../assets/outcome.svg'
 
 Modal.setAppElement('#root')
 
@@ -34,6 +36,18 @@ export function NewTransactionModal({
 
         <input placeholder="Título" />
         <input type="number" placeholder="Valor" />
+
+        <TransactionTypeContainer>
+          <button type="button">
+            <img src={incomeImg} alt="Entrada" />
+            <span>Entrada</span>
+          </button>
+          <button type="button">
+            <img src={outcomeImg} alt="Saida" />
+            <span>Saida</span>
+          </button>
+        </TransactionTypeContainer>
+
         <input placeholder="Categoría" />
 
         <button type="submit">Cadastrar</button>

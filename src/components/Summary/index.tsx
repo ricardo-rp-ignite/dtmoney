@@ -1,5 +1,5 @@
 import incomeImg from '../../assets/income.svg'
-import expenditureImg from '../../assets/expenditure.svg'
+import outcomeImg from '../../assets/outcome.svg'
 import totalImg from '../../assets/total.svg'
 
 import { Container } from './styles'
@@ -17,7 +17,7 @@ export function Summary(): React.ReactElement {
       <div>
         <header>
           <p>Saidas</p>
-          <img src={expenditureImg} alt="Despesas" />
+          <img src={outcomeImg} alt="Despesas" />
         </header>
         <strong>- R$500,00</strong>
       </div>
