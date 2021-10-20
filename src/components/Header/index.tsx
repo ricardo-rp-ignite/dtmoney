@@ -1,12 +1,14 @@
 import logoImg from '../../assets/logo.svg'
 import { Container, Content } from './styles'
 
-export function Header(): React.ReactElement {
+type Props = { openNewTransactionModal: () => void }
+
+export function Header({ openNewTransactionModal }: Props): JSX.Element {
   return (
     <Container>
       <Content>
         <img src={logoImg} alt="dt money" />
-        <button>Nova transação</button>
+        <button onClick={openNewTransactionModal}>Nova transação</button>
       </Content>
     </Container>
   )
