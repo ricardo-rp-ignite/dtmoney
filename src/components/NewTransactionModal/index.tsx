@@ -4,9 +4,10 @@ import { Form, RadioBox, TransactionTypeContainer } from './styles'
 import closeImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useInput } from '../../utils/useInput'
 import { TransactionType } from '../../types'
+import { TransactionsContext } from '../../context/TransactionsContext'
 
 Modal.setAppElement('#root')
 
@@ -19,22 +20,24 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose,
 }: NewTransactionModalProps) {
+  const { createTransaction } = useContext(TransactionsContext)
+
   const [type, setType] = useState<TransactionType>('deposit')
 
   const titleInput = useInput('')
-  const valueInput = useInput(0)
+  const amountInput = useInput(0)
   const categoryInput = useInput('')
 
-  const createNewTransaction: React.FormEventHandler<HTMLFormElement> =
-    event => {
-      event.preventDefault()
+  function handleCreateNewTransaction(event: React.FormEvent) {
+    event.preventDefault()
 
-      console.log({
-        title: titleInput.value,
-        value: valueInput.value,
-        category: categoryInput.value,
-      })
-    }
+    createTransaction({
+      title: titleInput.value,
+      category: categoryInput.value,
+      amount: amountInput.value,
+      type,
+    })
+  }
 
   return (
     <Modal
@@ -51,11 +54,11 @@ export function NewTransactionModal({
         <img src={closeImg} alt="Fechar modal" />
       </button>
 
-      <Form onSubmit={createNewTransaction}>
+      <Form onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar transação</h2>
 
         <input placeholder="Título" {...titleInput} />
-        <input type="number" placeholder="Valor" {...valueInput} />
+        <input type="number" placeholder="Valor" {...amountInput} />
 
         <TransactionTypeContainer>
           <RadioBox
