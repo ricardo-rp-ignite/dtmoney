@@ -64,8 +64,8 @@ export const TransactionTypeContainer = styled.div`
 
     transition: border-color 0.2s;
 
-    &:hober {
-      border-color: ${darken(0.1, '#d7d7d7')};
+    &:hover {
+      border-color: ${darken(0.2, '#d7d7d7')};
     }
 
     img {
