@@ -18,7 +18,7 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose,
 }: NewTransactionModalProps) {
-  const [type, setType] = useState<'deposit' | 'withdraw'>('deposit')
+  const [type, setType] = useState<TransactionType>('deposit')
 
   const titleInput = useInput('')
   const valueInput = useInput(0)
