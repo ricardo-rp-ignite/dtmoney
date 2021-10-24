@@ -3,6 +3,7 @@ import { Header } from './components/Header'
 import { GlobalStyle } from './styles/global'
 import { useState } from 'react'
 import { NewTransactionModal } from './components/NewTransactionModal'
+import { TransactionsProvider } from './context/TransactionsContext'
 
 export function App(): React.ReactElement {
   const [isNewTransactionModalOpen, setisNewTransactionModalOpen] =
@@ -17,7 +18,7 @@ export function App(): React.ReactElement {
   }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header openNewTransactionModal={openNewTransactionModal} />
 
       <Dashboard />
@@ -28,6 +29,6 @@ export function App(): React.ReactElement {
       />
 
       <GlobalStyle />
-    </>
+    </TransactionsProvider>
   )
 }
