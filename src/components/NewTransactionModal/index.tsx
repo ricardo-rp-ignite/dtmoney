@@ -5,6 +5,7 @@ import closeImg from '../../assets/close.svg'
 import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import { useState } from 'react'
+import { useInput } from '../../utils/useInput'
 
 Modal.setAppElement('#root')
 
@@ -18,6 +19,21 @@ export function NewTransactionModal({
   onRequestClose,
 }: NewTransactionModalProps) {
   const [type, setType] = useState<'deposit' | 'withdraw'>('deposit')
+
+  const titleInput = useInput('')
+  const valueInput = useInput(0)
+  const categoryInput = useInput('')
+
+  const createNewTransaction: React.FormEventHandler<HTMLFormElement> =
+    event => {
+      event.preventDefault()
+
+      console.log({
+        title: titleInput.value,
+        value: valueInput.value,
+        category: categoryInput.value,
+      })
+    }
 
   return (
     <Modal
@@ -34,11 +50,11 @@ export function NewTransactionModal({
         <img src={closeImg} alt="Fechar modal" />
       </button>
 
-      <Form>
+      <Form onSubmit={createNewTransaction}>
         <h2>Cadastrar transação</h2>
 
-        <input placeholder="Título" />
-        <input type="number" placeholder="Valor" />
+        <input placeholder="Título" {...titleInput} />
+        <input type="number" placeholder="Valor" {...valueInput} />
 
         <TransactionTypeContainer>
           <RadioBox
@@ -61,7 +77,7 @@ export function NewTransactionModal({
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input placeholder="Categoría" />
+        <input placeholder="Categoría" {...categoryInput} />
 
         <button type="submit">Cadastrar</button>
       </Form>
