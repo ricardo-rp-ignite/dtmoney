@@ -1,10 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { api } from '../../services/api'
+import { TableQueryResponse, Transaction } from '../../types'
 import { Container } from './styles'
 
 export function TransactionsTable(): React.ReactElement {
+  const [transactions, setTransactions] = useState<Transaction[]>([])
+
   useEffect(() => {
-    api.get('/transactions').then(({ data }) => console.log(data))
+    api
+      .get<TableQueryResponse>('/transactions')
+      .then(resp => setTransactions(resp.data.transactions))
   }, [])
 
   return (
@@ -19,19 +24,14 @@ export function TransactionsTable(): React.ReactElement {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Desenvolvimento de website</td>
-            <td className="deposit">R$12.000</td>
-            <td>Desenvolvimento</td>
-            <td>20/02/2020</td>
-          </tr>
-
-          <tr>
-            <td>Aluguel</td>
-            <td className="withdrawal">- R$1.100</td>
-            <td>Casa</td>
-            <td>30/02/2020</td>
-          </tr>
+          {transactions.map(transaction => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>{transaction.amount}</td>
+              <td>{transaction.category}</td>
+              <td>{transaction.createdAt}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </Container>
