@@ -6,6 +6,7 @@ import incomeImg from '../../assets/income.svg'
 import outcomeImg from '../../assets/outcome.svg'
 import { useState } from 'react'
 import { useInput } from '../../utils/useInput'
+import { TransactionType } from '../../types'
 
 Modal.setAppElement('#root')
 
