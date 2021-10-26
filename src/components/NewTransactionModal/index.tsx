@@ -24,14 +24,20 @@ export function NewTransactionModal({
 
   const [type, setType] = useState<TransactionType>('deposit')
 
-  const [title, bindTitle] = useInput('')
-  const [amount, bindAmount] = useInput(0)
-  const [category, bindCategory] = useInput('')
+  const [title, bindTitle, setTitle] = useInput('')
+  const [amount, bindAmount, setAmount] = useInput(0)
+  const [category, bindCategory, setCategory] = useInput('')
 
-  function handleCreateNewTransaction(event: React.FormEvent) {
+  async function handleCreateNewTransaction(event: React.FormEvent) {
     event.preventDefault()
 
-    createTransaction({ title, category, amount, type })
+    await createTransaction({ title, category, amount, type })
+
+    onRequestClose()
+    setTitle('')
+    setAmount(0)
+    setCategory('')
+    setType('deposit')
   }
 
   return (
