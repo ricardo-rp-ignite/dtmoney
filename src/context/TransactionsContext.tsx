@@ -40,4 +40,6 @@ export const TransactionsProvider: React.FC = ({ children }) => {
   )
 }
 
-export const useTransactionsContext = () => useContext(TransactionsContext)
+export function useTransactionsContext() {
+  return useContext(TransactionsContext)
+}
