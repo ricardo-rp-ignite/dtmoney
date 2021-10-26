@@ -24,19 +24,14 @@ export function NewTransactionModal({
 
   const [type, setType] = useState<TransactionType>('deposit')
 
-  const titleInput = useInput('')
-  const amountInput = useInput(0)
-  const categoryInput = useInput('')
+  const [title, bindTitle] = useInput('')
+  const [amount, bindAmount] = useInput(0)
+  const [category, bindCategory] = useInput('')
 
   function handleCreateNewTransaction(event: React.FormEvent) {
     event.preventDefault()
 
-    createTransaction({
-      title: titleInput.value,
-      category: categoryInput.value,
-      amount: amountInput.value,
-      type,
-    })
+    createTransaction({ title, category, amount, type })
   }
 
   return (
@@ -57,8 +52,8 @@ export function NewTransactionModal({
       <Form onSubmit={handleCreateNewTransaction}>
         <h2>Cadastrar transação</h2>
 
-        <input placeholder="Título" {...titleInput} />
-        <input type="number" placeholder="Valor" {...amountInput} />
+        <input placeholder="Título" {...bindTitle} />
+        <input type="number" placeholder="Valor" {...bindAmount} />
 
         <TransactionTypeContainer>
           <RadioBox
@@ -81,7 +76,7 @@ export function NewTransactionModal({
           </RadioBox>
         </TransactionTypeContainer>
 
-        <input placeholder="Categoría" {...categoryInput} />
+        <input placeholder="Categoría" {...bindCategory} />
 
         <button type="submit">Cadastrar</button>
       </Form>

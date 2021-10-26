@@ -1,10 +1,22 @@
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, Dispatch, useCallback } from 'react'
 
-export function useInput<T extends string | number>(initialValue: T) {
-  const [value, setValue] = useState(initialValue)
+export type UseInputReturn<T> = [
+  value: T,
+  bind: {
+    value: T
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  },
+  setValue: Dispatch<React.SetStateAction<T>>
+]
 
-  const onChange = (event: ChangeEvent<HTMLInputElement>) =>
-    setValue(event.currentTarget.value as T)
+export function useInput<T>(initialValue: T): UseInputReturn<T> {
+  const [value, setValue] = useState<T>(initialValue)
 
-  return { value, onChange }
+  const onChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setValue(event.currentTarget.value as unknown as T),
+    []
+  )
+
+  return [value, { value, onChange }, setValue]
 }
